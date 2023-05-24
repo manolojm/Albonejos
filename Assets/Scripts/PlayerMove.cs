@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
     bool isGrounded;
+    public bool puedoSaltar = false;
 
     // Update is called once per frame
     void Update()
@@ -30,7 +31,7 @@ public class PlayerMove : MonoBehaviour
         animator.SetFloat("VelX", x);
         animator.SetFloat("VelY", y);
 
-        if (Input.GetKey("d")) {
+        if (Input.GetKey("e")) {
             animator.SetBool("Other", false);
             animator.Play("Dance");
         }
@@ -42,12 +43,12 @@ public class PlayerMove : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (Input.GetKey("space") && isGrounded) {
             animator.Play("Jump");
-            Invoke("Salto", 1f);
+            Invoke("Salto", 0f);
             
         }
     }
 
     public void Salto() {
-        rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
     }
 }
